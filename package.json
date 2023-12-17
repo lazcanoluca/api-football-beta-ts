@@ -1,0 +1,11 @@
+{
+  "name": "api-football-beta-ts",
+  "version": "0.1.0",
+  "description": "Lightweight wrapper for the Api-Football-Beta API by API-SPORTS, with built-in types.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
