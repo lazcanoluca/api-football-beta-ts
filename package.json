@@ -1,11 +1,25 @@
 {
-  "name": "api-football-beta-ts",
-  "version": "0.1.0",
+  "name": "api-football-beta-ts-test",
+  "version": "0.0.0",
   "description": "Lightweight wrapper for the Api-Football-Beta API by API-SPORTS, with built-in types.",
-  "main": "index.ts",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup",
+    "test": "vitest"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {
+    "@types/node": "^20.10.4",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "tsup": "^8.0.1"
+  },
+  "files": [
+    "dist"
+  ]
 }
