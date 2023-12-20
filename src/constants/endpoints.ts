@@ -3,4 +3,5 @@ export const ENDPOINTS = {
   COUNTRIES: "/countries",
   LEAGUES: "/leagues",
   TEAMS: "/teams",
+  FIXTURES: "/fixtures",
 } as const;
