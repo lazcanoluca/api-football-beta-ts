@@ -2,11 +2,12 @@ import { beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 import { ApiFootballResponse, BaseClient } from "../base_client";
 import { ENDPOINTS } from "../constants";
 import { League } from "../models";
+import "dotenv/config";
 
 describe("Base Client", () => {
   let client: BaseClient;
   beforeAll(() => {
-    client = new BaseClient();
+    client = new BaseClient({ rapid_api_key: process.env.RAPID_API_KEY || "" });
   });
 
   it("checks if the base client instantiates correctly", () => {

@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import "dotenv/config";
 
 import { ENDPOINTS } from "./constants";
 
@@ -13,15 +12,21 @@ export type ApiFootballResponse<TEntity, TParams> = {
   response: TEntity[];
 };
 
+export type ClientConfig = {
+  rapid_api_key: string;
+};
+
 export class BaseClient {
   protected axiosInstance: AxiosInstance;
+  protected config: ClientConfig;
 
-  constructor() {
+  constructor(config: ClientConfig) {
+    this.config = config;
     this.axiosInstance = axios.create({
       method: "GET",
       baseURL: "https://api-football-beta.p.rapidapi.com",
       headers: {
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+        "X-RapidAPI-Key": this.config.rapid_api_key,
         "X-RapidAPI-Host": "api-football-beta.p.rapidapi.com",
       },
     });
