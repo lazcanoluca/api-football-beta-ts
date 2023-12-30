@@ -15,11 +15,12 @@ export class TeamClient extends BaseClient {
   public async getTeams(params: Partial<TeamRequestParams>): Promise<Team[]> {
     return this.getEntityList<Team, Partial<TeamRequestParams>>(
       ENDPOINTS.TEAMS,
-      params
+      params,
+      true
     );
   }
 
   public async getTeamById(id: number): Promise<Team> {
-    return this.getEntityById<Team>(ENDPOINTS.TEAMS, id);
+    return this.getEntityById<Team>(ENDPOINTS.TEAMS, id, true);
   }
 }

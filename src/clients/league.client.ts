@@ -21,11 +21,12 @@ export class LeagueClient extends BaseClient {
   ): Promise<League[]> {
     return this.getEntityList<League, Partial<LeagueRequestParams>>(
       ENDPOINTS.LEAGUES,
-      params
+      params,
+      true
     );
   }
 
   public async getLeagueById(id: number): Promise<League> {
-    return this.getEntityById<League>(ENDPOINTS.LEAGUES, id);
+    return this.getEntityById<League>(ENDPOINTS.LEAGUES, id, true);
   }
 }
