@@ -1,6 +1,6 @@
 {
   "name": "api-football-beta-ts-test",
-  "version": "0.0.1-beta.4",
+  "version": "0.0.1",
   "description": "Lightweight wrapper for the Api-Football-Beta API by API-SPORTS, with built-in types.",
   "main": "./dist/index.js",
   "scripts": {
