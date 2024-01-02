@@ -24,7 +24,8 @@ export class FixtureClient extends BaseClient {
   ): Promise<Fixture[]> {
     return this.getEntityList<Fixture, Partial<FixtureRequestParams>>(
       ENDPOINTS.FIXTURES,
-      params
+      params,
+      false
     );
   }
 }

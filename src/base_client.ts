@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 import { ENDPOINTS } from "./constants";
+import { AxiosCacheInstance, setupCache } from "axios-cache-interceptor";
 
 type Endpoint = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];
 
@@ -18,6 +19,7 @@ export type ClientConfig = {
 
 export class BaseClient {
   protected axiosInstance: AxiosInstance;
+  protected axiosInstanceWithCache: AxiosCacheInstance;
   protected config: ClientConfig;
 
   constructor(config: ClientConfig) {
@@ -30,16 +32,19 @@ export class BaseClient {
         "X-RapidAPI-Host": "api-football-beta.p.rapidapi.com",
       },
     });
+    this.axiosInstanceWithCache = setupCache(this.axiosInstance);
   }
 
   protected async getEntityById<TEntity>(
     endpoint: Endpoint,
-    id: number
+    id: number,
+    cache: boolean
   ): Promise<TEntity> {
     return new Promise<TEntity>((resolve, reject) => {
-      this.axiosInstance
+      this.axiosInstanceWithCache
         .get<ApiFootballResponse<TEntity, { id: number }>>(endpoint, {
           params: { id },
+          cache: cache && {},
         })
         .then((res) => {
           if (res.data.results > 0) {
@@ -54,12 +59,14 @@ export class BaseClient {
 
   protected async getEntityList<TEntity, TParams extends {} = never>(
     endpoint: Endpoint,
-    params?: TParams
+    params: TParams,
+    cache: boolean
   ): Promise<TEntity[]> {
     return new Promise<TEntity[]>((resolve, reject) => {
-      this.axiosInstance
+      this.axiosInstanceWithCache
         .get<ApiFootballResponse<TEntity, TParams>>(endpoint, {
           params: { ...params },
+          cache: cache && {},
         })
         .then((res) => resolve(res.data.response))
         .catch((err) => reject(err));
