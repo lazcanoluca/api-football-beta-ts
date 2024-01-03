@@ -1,7 +1,11 @@
 import axios, { AxiosInstance } from "axios";
 
 import { ENDPOINTS } from "./constants";
-import { AxiosCacheInstance, setupCache } from "axios-cache-interceptor";
+import {
+  AxiosCacheInstance,
+  buildWebStorage,
+  setupCache,
+} from "axios-cache-interceptor";
 
 type Endpoint = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];
 
@@ -32,7 +36,9 @@ export class BaseClient {
         "X-RapidAPI-Host": "api-football-beta.p.rapidapi.com",
       },
     });
-    this.axiosInstanceWithCache = setupCache(this.axiosInstance);
+    this.axiosInstanceWithCache = setupCache(this.axiosInstance, {
+      storage: buildWebStorage(localStorage),
+    });
   }
 
   protected async getEntityById<TEntity>(
