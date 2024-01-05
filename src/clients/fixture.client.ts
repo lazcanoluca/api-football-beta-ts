@@ -20,12 +20,15 @@ type FixtureRequestParams = {
 
 export class FixtureClient extends BaseClient {
   public async getFixtures(
-    params: Partial<FixtureRequestParams>
+    params: Partial<FixtureRequestParams>,
+    cache?: {
+      ttl?: number;
+    }
   ): Promise<Fixture[]> {
     return this.getEntityList<Fixture, Partial<FixtureRequestParams>>(
       ENDPOINTS.FIXTURES,
       params,
-      false
+      cache
     );
   }
 }

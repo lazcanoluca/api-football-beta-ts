@@ -17,16 +17,24 @@ type LeagueRequestParams = {
 
 export class LeagueClient extends BaseClient {
   public async getLeagues(
-    params: Partial<LeagueRequestParams>
+    params: Partial<LeagueRequestParams>,
+    cache?: {
+      ttl?: number;
+    }
   ): Promise<League[]> {
     return this.getEntityList<League, Partial<LeagueRequestParams>>(
       ENDPOINTS.LEAGUES,
       params,
-      true
+      cache
     );
   }
 
-  public async getLeagueById(id: number): Promise<League> {
-    return this.getEntityById<League>(ENDPOINTS.LEAGUES, id, true);
+  public async getLeagueById(
+    id: number,
+    cache?: {
+      ttl?: number;
+    }
+  ): Promise<League> {
+    return this.getEntityById<League>(ENDPOINTS.LEAGUES, id, cache);
   }
 }

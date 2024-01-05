@@ -12,15 +12,25 @@ type TeamRequestParams = {
 };
 
 export class TeamClient extends BaseClient {
-  public async getTeams(params: Partial<TeamRequestParams>): Promise<Team[]> {
+  public async getTeams(
+    params: Partial<TeamRequestParams>,
+    cache?: {
+      ttl?: number;
+    }
+  ): Promise<Team[]> {
     return this.getEntityList<Team, Partial<TeamRequestParams>>(
       ENDPOINTS.TEAMS,
       params,
-      true
+      cache
     );
   }
 
-  public async getTeamById(id: number): Promise<Team> {
-    return this.getEntityById<Team>(ENDPOINTS.TEAMS, id, true);
+  public async getTeamById(
+    id: number,
+    cache?: {
+      ttl?: number;
+    }
+  ): Promise<Team> {
+    return this.getEntityById<Team>(ENDPOINTS.TEAMS, id, cache);
   }
 }

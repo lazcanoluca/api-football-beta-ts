@@ -44,13 +44,15 @@ export class BaseClient {
   protected async getEntityById<TEntity>(
     endpoint: Endpoint,
     id: number,
-    cache: boolean
+    cache?: {
+      ttl?: number;
+    }
   ): Promise<TEntity> {
     return new Promise<TEntity>((resolve, reject) => {
       this.axiosInstanceWithCache
         .get<ApiFootballResponse<TEntity, { id: number }>>(endpoint, {
           params: { id },
-          cache: cache && {},
+          cache: cache ? cache : false,
         })
         .then((res) => {
           if (res.data.results > 0) {
@@ -66,13 +68,15 @@ export class BaseClient {
   protected async getEntityList<TEntity, TParams extends {} = never>(
     endpoint: Endpoint,
     params: TParams,
-    cache: boolean
+    cache?: {
+      ttl?: number;
+    }
   ): Promise<TEntity[]> {
     return new Promise<TEntity[]>((resolve, reject) => {
       this.axiosInstanceWithCache
         .get<ApiFootballResponse<TEntity, TParams>>(endpoint, {
           params: { ...params },
-          cache: cache && {},
+          cache: cache ? cache : false,
         })
         .then((res) => resolve(res.data.response))
         .catch((err) => reject(err));
